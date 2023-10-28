@@ -22,7 +22,7 @@ export default async function SearchResults({ term, startIndex }: Props) {
         About {results.searchInformation?.formattedTotalResults} results (
         {results.searchInformation?.formattedSearchTime}) seconds
       </p>
-      {results.items.map((result) => (
+      {results.items?.map((result) => (
         <div key={result.link} className="mb-8 max-w-xl">
           <div>
             <a
@@ -40,7 +40,7 @@ export default async function SearchResults({ term, startIndex }: Props) {
           <p className="line-clamp-2">{result.snippet}</p>
         </div>
       ))}
-      <PaginationButtons />
+      {results.items && <PaginationButtons />}
     </div>
   );
 }

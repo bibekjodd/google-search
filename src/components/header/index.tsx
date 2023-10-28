@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import useLoadingBar from "@/hooks/useLoadingBar";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -7,23 +7,29 @@ import { CgMenuGridO } from "react-icons/cg";
 import { FiSettings } from "react-icons/fi";
 import { MdSearch } from "react-icons/md";
 import { TbMinusVertical } from "react-icons/tb";
+import ProgressLink from "../progress-link";
 
 export default function Header() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [inputValue, setInputValue] = useState(searchParams.get("term") || "");
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const start = useLoadingBar((state) => state.start);
+
   const search = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const term = searchInputRef.current?.value;
     if (!term) return;
-    router.push(`/search?term=${term}&start=0`);
+    const url = `/search?term=${term}&start=0`;
+    const sameUrl = start(url);
+    if (sameUrl) return;
+    router.push(url);
   };
   return (
     <header className="flex w-full items-center px-2 py-1">
-      <Link href="/">
+      <ProgressLink href="/">
         <img src="/google-logo.png" alt="" className="w-20 sm:w-24 " />
-      </Link>
+      </ProgressLink>
 
       <form
         onSubmit={search}

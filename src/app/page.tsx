@@ -1,4 +1,5 @@
 "use client";
+import useLoadingBar from "@/hooks/useLoadingBar";
 import { useRouter } from "next/navigation";
 import React, { useRef } from "react";
 import { CgMenuGridO } from "react-icons/cg";
@@ -6,8 +7,11 @@ import { MdSearch } from "react-icons/md";
 export default function Page() {
   const router = useRouter();
   const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const start = useLoadingBar((state) => state.start);
+
   const search = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    start();
     const term = searchInputRef.current?.value;
     if (!term) return;
 
