@@ -34,8 +34,8 @@ export default function Page() {
       <section className="my-10 mb-auto flex w-full flex-col items-center px-5">
         <img src="/google.svg" alt="" className="h-24 sm:h-28 md:h-32" />
         <form onSubmit={search} className="flex w-full flex-col items-center">
-          <div className="xs:py-2 xs:w-96  flex w-full items-center space-x-1.5 rounded-full px-4 py-1.5  text-lg shadow-md ring-1 ring-gray-200 transition focus-within:shadow-lg  sm:w-[500px] sm:space-x-2">
-            <MdSearch className="text-2xl text-gray-500" />
+          <div className="xs:py-2 xs:w-96  flex w-full items-center space-x-1.5 rounded-full px-6 py-3  text-lg shadow-md ring-1 ring-gray-200 transition focus-within:shadow-lg  sm:w-[500px] sm:space-x-2">
+            <MdSearch className="h-6 w-6 text-gray-500" />
             <input
               ref={searchInputRef}
               type="text"

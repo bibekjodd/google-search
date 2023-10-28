@@ -1,26 +1,21 @@
-"use client";
 import React from "react";
 import PaginationButtons from "@/components/pagination-buttons";
-
-export type Results = {
-  searchInformation: {
-    formattedTotalResults: number;
-    formattedSearchTime: string;
-  };
-  items: {
-    link: string;
-    formattedUrl: string;
-    title: string;
-    snippet: string;
-  }[];
-};
+import { fetchSearchResults } from "@/lib/fetch-search-results";
 
 type Props = {
-  results?: Results;
+  term?: string;
+  startIndex?: string | number;
 };
 
-function SearchResults({ results }: Props) {
-  if (!results) return "Search Results";
+export default async function SearchResults({ term, startIndex }: Props) {
+  if (!term) return <div>Provide the search term to see results</div>;
+
+  const results = await fetchSearchResults({
+    term,
+    startIndex: startIndex || 0,
+  });
+  if (!results) return <></>;
+
   return (
     <div className="mx-auto w-full px-5">
       <p className="mb-2 text-gray-600 ">
@@ -49,5 +44,3 @@ function SearchResults({ results }: Props) {
     </div>
   );
 }
-
-export default SearchResults;

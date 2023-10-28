@@ -1,16 +1,17 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { MdSearch } from "react-icons/md";
-import { AiOutlineClose } from "react-icons/ai";
-import { TbMinusVertical } from "react-icons/tb";
-import { FiSettings } from "react-icons/fi";
-import { CgMenuGridO } from "react-icons/cg";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { useRef, useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import { CgMenuGridO } from "react-icons/cg";
+import { FiSettings } from "react-icons/fi";
+import { MdSearch } from "react-icons/md";
+import { TbMinusVertical } from "react-icons/tb";
 
 export default function Header() {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState("");
+  const searchParams = useSearchParams();
+  const [inputValue, setInputValue] = useState(searchParams.get("term") || "");
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   const search = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,9 +19,6 @@ export default function Header() {
     if (!term) return;
     router.push(`/search?term=${term}&start=0`);
   };
-  useEffect(() => {
-    // if (router.isReady) setInputValue(router.query.term);
-  }, []);
   return (
     <header className="flex w-full items-center px-2 py-1">
       <Link href="/">
@@ -29,7 +27,7 @@ export default function Header() {
 
       <form
         onSubmit={search}
-        className="xs:w-80 mx-5 mr-auto flex w-72 items-center  space-x-1.5 rounded-full  px-5 py-1 text-lg shadow-md ring-1  ring-gray-200  transition focus-within:shadow-lg sm:mx-10  sm:w-[450px] sm:space-x-2 md:mx-16 md:w-[600px]"
+        className="xs:w-80 mx-5 mr-auto flex w-72 items-center  space-x-1.5 rounded-full  px-7 py-3 text-lg shadow-md ring-1  ring-gray-200  transition focus-within:shadow-lg sm:mx-10  sm:w-[450px] sm:space-x-2 md:mx-16 md:w-[600px]"
       >
         <input
           ref={searchInputRef}
@@ -41,14 +39,14 @@ export default function Header() {
           name=""
           id=""
           placeholder={"Search Google"}
-          className="w-full bg-transparent outline-none"
+          className="w-full bg-transparent text-base outline-none"
         />
         <AiOutlineClose
           onClick={() => {
-            searchInputRef.current = null;
-            // searchInputRef.current?.focus();
+            setInputValue("");
+            searchInputRef.current?.focus();
           }}
-          className="cursor-pointer text-2xl text-gray-500 transition hover:text-black"
+          className="cursor-pointer text-xl text-gray-500 transition hover:text-black"
         />
         <TbMinusVertical className="xs:block hidden text-3xl text-gray-500 transition" />
         <MdSearch className="xs:block hidden cursor-pointer text-2xl text-blue-500 transition" />

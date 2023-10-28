@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
+import { IconType } from "react-icons";
 
 type Props = {
-  Icon: any;
+  Icon: IconType;
   title: string;
   selected?: boolean;
 };

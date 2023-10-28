@@ -1,5 +1,5 @@
 "use client";
-import HeaderOption from "@/components/header-option";
+import HeaderOption from "@/components/header/header-option";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { IoImagesOutline, IoNewspaperOutline } from "react-icons/io5";
