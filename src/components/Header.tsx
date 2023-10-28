@@ -1,16 +1,18 @@
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { TbMinusVertical } from "react-icons/tb";
 import { FiSettings } from "react-icons/fi";
 import { CgMenuGridO } from "react-icons/cg";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Header() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState("");
   const searchInputRef = useRef<HTMLInputElement | null>(null);
-  const search = (e) => {
+  const search = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const term = searchInputRef.current?.value;
     if (!term) return;
@@ -21,7 +23,10 @@ export default function Header() {
   }, []);
   return (
     <header className="flex w-full items-center px-2 py-1">
-      <img src="/google-logo.png" alt="" className="w-20 sm:w-24 " />
+      <Link href="/">
+        <img src="/google-logo.png" alt="" className="w-20 sm:w-24 " />
+      </Link>
+
       <form
         onSubmit={search}
         className="xs:w-80 mx-5 mr-auto flex w-72 items-center  space-x-1.5 rounded-full  px-5 py-1 text-lg shadow-md ring-1  ring-gray-200  transition focus-within:shadow-lg sm:mx-10  sm:w-[450px] sm:space-x-2 md:mx-16 md:w-[600px]"
